@@ -3,6 +3,7 @@ import { allProducts } from '../Api/allProducts';
 import { useState, useEffect } from 'react';
 import ListItem from '../Components/ListItem';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = () => {
   const [list, setList] = useState([])
@@ -17,7 +18,9 @@ const HomePage = () => {
     <Container>
 
       {list.map((item) => (
-        <ListItem key={item.id} title={item.title} pic={item.thumbnail} price={item.price} discount={item.discountPercentage}/>
+        <Slink to={`/category/${item.category}/${item.id}`} key={item.id + item.title}>
+         <ListItem key={item.id} title={item.title} pic={item.thumbnail} price={item.price} discount={item.discountPercentage}/>
+        </Slink>
      ))}
     </Container>
   );
@@ -31,5 +34,9 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+`
 
+const Slink = styled(NavLink)`
+  text-decoration: none;
+  color: inherit;
 `

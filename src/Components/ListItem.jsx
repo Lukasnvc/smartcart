@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { brown, grey, mint } from "../Utils/colors";
+import { brown, mint } from "../Utils/colors";
+
 
 const ListItem = ({title, price, discount, pic}) => {
   return (
@@ -18,16 +19,21 @@ export default ListItem;
 
 const Details = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
+  max-width: 300px;
+
   h4 {
-    font-size: 0.9rem;
-    margin: 0 5px;
+    font-size: 1rem;
+    margin: 0 15px;
+    margin-top: 10px;
     text-transform: capitalize;
  }
  p {
   font-weight: 700;
+  font-size: 1.2rem;
   color: ${brown};
+  margin-bottom: 20px;
  }
 `
 
@@ -35,36 +41,36 @@ const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px;
-  background-color: rgba(240, 240, 240, 0.7);
+  background-color: #ffffff;
   position: relative;
-  border-radius: 10px;
+  border-radius: 5px;
   transition: 300ms ease;
   cursor: pointer;
   
  img{
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 280px;
+  margin: 10px;
   object-fit: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 5px;
  }
  span {
   position: absolute;
   font-size: 1rem;
-  top: 0%;
-  right: 0%;
+  top: 10px;
+  right: 10px;
   padding: 15px 10px;
   color: #8f0f04;
   background-color: #e5b1a881;
-  border-bottom-left-radius: 50%;
-  border-top-right-radius: 10px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
   font-weight: 700;
   transition: inherit;
  }
 
  &:hover {
-  background-color: ${mint};
-
+  /* background-color: ${mint}; */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   span {
     background-color: #e5b1a8e2;
   }
