@@ -7,6 +7,7 @@ import { FaOpencart } from 'react-icons/fa'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { NavLink } from "react-router-dom";
 import Search from "./Search";
+import {FaShoppingCart} from 'react-icons/fa'
 
 const Navbar = () => {
   const [categoriesItems, setCategoriesitems] = useState([])
@@ -20,9 +21,6 @@ const Navbar = () => {
   },[])
   return (
     <NavContainer>
-      <NavTab>
-        <Slink to={'/'}><FaOpencart/></Slink>
-      </NavTab>
       <DropDown>
         <h3><GiHamburgerMenu/>Categories</h3>
         <ul>
@@ -31,40 +29,55 @@ const Navbar = () => {
       ))}
           </ul>
       </DropDown>
-      <Search/>
+        <Slink to={'/'}><Logo/></Slink>
+      <Right>
+      <Search />
+        <Cart/>
+        </Right>
       </NavContainer>
   );
 }
 
 export default Navbar;
 
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Cart = styled(FaShoppingCart)`
+  font-size: 1.5rem;
+  color: ${brown};
+  padding: 5px;
+  margin: 0 30px;
+  cursor: pointer;
+  &:hover {
+    color: ${mint}
+  }
+`
 
 const NavContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   border-bottom: 1px solid ${brown};
   align-items: stretch;
   background-color: #ffffff;
 `
 
-const NavTab = styled.div`
+const Logo = styled(FaOpencart)`
   padding: 8px 10px;
   cursor: pointer;
   color: ${brown};
-  svg {
-    font-size: 2.2rem;
-    margin: 0 20px;
-  }
+  font-size: 2.2rem;
   &:hover {
-    svg {
       color: ${mint}
     }
-  }
 `
 
 const DropDown = styled.div`
   position: relative;
   padding: 8px 10px;
+  margin: 0 30px;
   cursor: pointer;
   color: ${brown};
   display: flex;

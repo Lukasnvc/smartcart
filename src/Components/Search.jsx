@@ -51,7 +51,7 @@ const SearchContainer = styled.div`
   position: relative;
   svg {
     position: absolute;
-    bottom: 36%;
+    bottom: 30%;
     left: 4%;
     color: ${brown};
     font-size: 0.9rem;
@@ -62,7 +62,7 @@ const SearchContainer = styled.div`
     width: 215px;
     border: none;
     background-color: rgba(240, 240, 240, 0.8);
-    padding: 5px 0 5px 35px;
+    padding: 7px 0 7px 35px;
     outline: none;
     border-radius: 4px;
   }

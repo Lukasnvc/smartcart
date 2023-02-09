@@ -30,10 +30,11 @@ export default HomePage;
 
 const Container = styled.div`
   width: 90%;
-  margin: 50px auto;
+  margin: 40px auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 10px;
 `
 
 const Slink = styled(NavLink)`

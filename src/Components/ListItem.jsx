@@ -69,7 +69,6 @@ const CardContainer = styled.div`
  }
 
  &:hover {
-  /* background-color: ${mint}; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   span {
     background-color: #e5b1a8e2;
