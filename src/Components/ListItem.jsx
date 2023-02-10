@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { brown, mint } from "../Utils/colors";
+import { brown } from "../Utils/colors";
+import { size } from "../Utils/breakpoints";
 
 
 const ListItem = ({title, price, discount, pic}) => {
@@ -24,10 +25,16 @@ const Details = styled.div`
   max-width: 300px;
 
   h4 {
+    width: 100%;
     font-size: 1rem;
     margin: 0 15px;
     margin-top: 10px;
     text-transform: capitalize;
+    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre;
+  text-align: center;
+
  }
  p {
   font-weight: 700;
@@ -35,9 +42,24 @@ const Details = styled.div`
   color: ${brown};
   margin-bottom: 20px;
  }
+
+ @media (max-width: ${size.mobile}) {
+    max-width: 180px;
+
+    h4 {
+      font-size: 0.5rem;
+
+    }
+
+    p {
+      font-size: 0.7rem;
+      margin-bottom: 10px;
+    }
+  }
 `
 
 const CardContainer = styled.div`
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   margin: 10px;
@@ -67,6 +89,28 @@ const CardContainer = styled.div`
   font-weight: 700;
   transition: inherit;
  }
+
+ @media (max-width: ${size.laptop}) {
+    max-width: 250px;
+
+    span {
+      font-size: 0.7rem;
+      padding: 10px 5px;
+    }
+    
+    img{
+      width: 230px;
+      height: 230px;
+    }
+    @media (max-width: ${size.mobile}) {
+    width: 160px;
+    
+    img {
+      width: 140px;
+      height: 140px;
+    }
+  }
+  }
 
  &:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

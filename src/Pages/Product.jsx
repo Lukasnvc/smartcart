@@ -4,7 +4,8 @@ import axios from "axios";
 import { getSingleProduct } from '../Api/getSingleProduct';
 import styled from "styled-components";
 import { bgColor, brown, grey, lightGreen, mint } from '../Utils/colors';
-import {FaCartPlus} from 'react-icons/fa'
+import { FaCartPlus } from 'react-icons/fa'
+import {size} from '../Utils/breakpoints'
 
 
 const Product = () => {
@@ -67,9 +68,12 @@ const ProductContainer = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #ffffff;
-  height: 60vh;
+  
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  @media (max-width: ${size.tablet}) {
+    flex-direction: column;
+  }
 `
 
 const ImgContainer = styled.div`
@@ -77,20 +81,28 @@ const ImgContainer = styled.div`
   flex: 3;
   align-items: center;
   img {
-    max-height: 500px;
+    max-height: 400px;
     max-width: 500px;
     object-fit: contain;
     border-radius: 3px;
     margin: 0 auto;
+    @media (max-width: ${size.mobile}) {
+    max-width: 350px;
+  }
+  }
+  @media (max-width: ${size.tablet}) {
+    flex-direction: column;
   }
 `
 
 const ThumbNails = styled.div`
 display: flex;
 flex-direction: column;
+align-items: center;
 justify-content: center;
 background-color: #ffffff;
 padding: 0 10px;
+margin: 20px 0;
   img {
     width: 80px;
     height: 80px;
@@ -100,6 +112,13 @@ padding: 0 10px;
     border-radius: 3px;
     cursor: pointer;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  @media (max-width: ${size.tablet}) {
+    flex-direction: row;
+    img {
+      width: 40px;
+    height: 40px;
+    }
   }
 `
 
@@ -111,7 +130,7 @@ const DetailContainer = styled.div`
   justify-content: space-evenly;
   background-color: ${bgColor};
   border-radius: 5px;
-  margin: 60px 30px;
+  margin: 30px 30px;
   color: ${grey};
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   span {
@@ -128,6 +147,7 @@ const DetailContainer = styled.div`
     display: flex;
     align-items: center;
     padding: 10px 20px;
+    margin-bottom: 20px;
     font-size: 1.3rem;
     background-color: ${grey};
     color: #ffffff;

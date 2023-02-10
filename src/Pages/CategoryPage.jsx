@@ -5,6 +5,7 @@ import { byCategory } from '../Api/byCategory';
 import ListItem from "../Components/ListItem";
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
+import { size } from "../Utils/breakpoints";
 
 const CategoryPage = () => {
   const [list, setList] = useState([])
@@ -33,10 +34,14 @@ export default CategoryPage;
 const Container = styled.div`
   width: 90%;
   margin: 40px auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  @media (max-width: ${size.tablet}) {
+   grid-template-columns: 1fr 1fr;
+   gap: 10px;
+   width: 95%;
+  }
 `
 
 const Slink = styled(NavLink)`

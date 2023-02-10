@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 const Search = () => {
   const [products, setProducts] = useState([])
   const [input, setInput] = useState('')
+  const [isHidden, setIsHidden] = useState(true)
   useEffect(() => {
     axios
       .get(searchProducts + input)
@@ -17,14 +18,20 @@ const Search = () => {
       console.log('Search :', error)
     })
   }, [input])
+  const searching = (e) => {
+    setIsHidden(false)
+    setInput(e)
+  }
   const left = () => {
-    setProducts([])
+    setIsHidden(true)
   }
   return (
     <SearchContainer>
         <FaSearch/>
-      <input onChange={(e) => setInput(e.target.value)} placeholder="Product search ..." type="text" />
-      {products.length < 30 && <SearchDropDown onMouseLeave={left}>
+      <input onChange={(e) => searching(e.target.value) } placeholder="Product search ..." type="text" />
+      {products.length < 30 &&
+        <SearchDropDown onMouseLeave={left}
+        style={{ display: isHidden && 'none' }}>
         <ul>
           {products.length < 30 && products.map((item) => (
             <Slink to={`/category/${item.category}/${item.id}`} key={item.id + item.title}>
@@ -70,7 +77,7 @@ const SearchContainer = styled.div`
 
 const SearchDropDown = styled.ul`
   position: absolute;
-  top: 23px;
+  top: 13px;
   left: 0px;
   width: inherit;
   z-index: 99;
