@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { searchProducts } from "../Api/searchProducts";
 import { NavLink } from "react-router-dom";
+import { size } from "../Utils/breakpoints";
 
 const Search = () => {
   const [products, setProducts] = useState([])
@@ -72,6 +73,9 @@ const SearchContainer = styled.div`
     padding: 7px 0 7px 35px;
     outline: none;
     border-radius: 4px;
+  }
+  @media (max-width: ${size.mobile}) {
+    width: 100px;
   }
 `
 

@@ -2,12 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { categories } from '../Api/categories';
 import styled from 'styled-components'
-import { grey, mint, brown } from "../Utils/colors";
+import { mint, brown } from "../Utils/colors";
 import { FaOpencart } from 'react-icons/fa'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { NavLink } from "react-router-dom";
 import Search from "./Search";
-import {FaShoppingCart} from 'react-icons/fa'
+import { FaShoppingCart } from 'react-icons/fa'
+import { size } from "../Utils/breakpoints";
 
 const Navbar = () => {
   const [categoriesItems, setCategoriesitems] = useState([])
@@ -43,6 +44,9 @@ export default Navbar;
 const Right = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: ${size.mobile}) {
+  flex-direction: column;
+  }
 `
 
 const Cart = styled(FaShoppingCart)`
@@ -62,6 +66,9 @@ const NavContainer = styled.div`
   border-bottom: 1px solid ${brown};
   align-items: stretch;
   background-color: #ffffff;
+  @media (max-width: ${size.mobile}) {
+  width: 100%;
+  }
 `
 
 const Logo = styled(FaOpencart)`
@@ -72,6 +79,9 @@ const Logo = styled(FaOpencart)`
   &:hover {
       color: ${mint}
     }
+    @media (max-width: ${size.mobile}) {
+ display: none;
+  }
 `
 
 const DropDown = styled.div`
@@ -124,6 +134,10 @@ const DropDown = styled.div`
     ul {
       display: block;
     }
+  }
+
+  @media (max-width: ${size.mobile}) {
+  margin: 0 10px;
   }
 `
 

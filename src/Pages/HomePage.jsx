@@ -5,6 +5,7 @@ import ListItem from '../Components/ListItem';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { size } from '../Utils/breakpoints';
+import LineFiller from '../Components/LineFiller';
 
 
 const HomePage = () => {
@@ -17,14 +18,16 @@ const HomePage = () => {
   },[])
 
   return (
+    <>
+      <LineFiller/>
     <Container>
-
       {list.map((item) => (
         <Slink to={`/category/${item.category}/${item.id}`} key={item.id + item.title}>
-         <ListItem key={item.id} title={item.title} pic={item.thumbnail} price={item.price} discount={item.discountPercentage}/>
+          <ListItem key={item.id} title={item.title} pic={item.thumbnail} price={item.price} discount={item.discountPercentage} category={item.category } />
         </Slink>
      ))}
-    </Container>
+      </Container>
+      </>
   );
 }
 
