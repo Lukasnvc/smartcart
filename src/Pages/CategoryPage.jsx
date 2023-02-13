@@ -1,23 +1,16 @@
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { byCategory } from '../Api/byCategory';
 import ListItem from "../Components/ListItem";
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
 import { size } from "../Utils/breakpoints";
+import { useProductsByCategory } from "../hooks/products";
 
 const CategoryPage = () => {
-  const [list, setList] = useState([])
   let params = useParams()
-  useEffect(() => {
-    axios
-      .get(byCategory + params.name)
-      .then((response) => setList(response.data.products))
-      .catch((error) => {
-      console.log('Category :', error)
-    })
-  }, [params.name])
+  const { data, isLoading, error } = useProductsByCategory(params.name);
+  const list = data || [];
+  console.log(data)
+
   return (
     <Container>
          {list.map((item) => (

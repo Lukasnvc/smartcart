@@ -1,6 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { categories } from '../Api/categories';
 import styled from 'styled-components'
 import { mint, brown } from "../Utils/colors";
 import { FaOpencart } from 'react-icons/fa'
@@ -9,17 +6,12 @@ import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { FaShoppingCart } from 'react-icons/fa'
 import { size } from "../Utils/breakpoints";
+import { useCategoriesList } from "../hooks/products";
 
 const Navbar = () => {
-  const [categoriesItems, setCategoriesitems] = useState([])
-  useEffect(() => {
-    axios
-      .get(categories)
-      .then((response) => setCategoriesitems(response.data))
-      .catch((error) => {
-      console.log('Categories :' , error)
-      })
-  },[])
+  const { data, isLoading, error } = useCategoriesList();
+  const categoriesItems = data || []
+  
   return (
     <NavContainer>
       <DropDown>

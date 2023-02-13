@@ -56,6 +56,7 @@ export default Product;
 
 const Container = styled.div`
   width: 90vw;
+  height: 80vh;
   margin: 30px auto;
   text-transform: capitalize;
   h2 {

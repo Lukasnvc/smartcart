@@ -1,22 +1,22 @@
-import axios from 'axios'
-import { allProducts } from '../Api/allProducts';
-import { useState, useEffect } from 'react';
+
 import ListItem from '../Components/ListItem';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { size } from '../Utils/breakpoints';
 import LineFiller from '../Components/LineFiller';
+import { useAllProducts } from '../hooks/products';
 
 
 const HomePage = () => {
-  const [list, setList] = useState([])
-  useEffect(() => {
-    axios 
-    .get(allProducts)
-    .then((response) => setList(response.data.products))
-      .catch((error) => console.log('home :', error))
-  },[])
+  const { data, isLoading, error } = useAllProducts();
+  const list = data || []
 
+  if (isLoading) {
+    return <h1>Loading...</h1>
+  }
+  if (error) {
+    return <h1>Cant get data...</h1>
+  }
   return (
     <>
       <LineFiller/>
