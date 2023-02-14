@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { size } from "../Utils/breakpoints";
 import { useSearch } from "../hooks/products";
 
+
 const Search = () => {
 
   const [input, setInput] = useState('')
@@ -61,16 +62,17 @@ const SearchContainer = styled.div`
     border-right: 2px solid ${brown};
   }
   input {
-    width: 215px;
+    width: 180px;
     border: none;
     background-color: rgba(240, 240, 240, 0.8);
     padding: 7px 0 7px 35px;
     outline: none;
     border-radius: 4px;
+    @media (max-width: ${size.mobile}) {
+    width: 120px;
   }
-  @media (max-width: ${size.mobile}) {
-    width: 100px;
   }
+ 
 `
 
 const SearchDropDown = styled.ul`
@@ -83,55 +85,58 @@ const SearchDropDown = styled.ul`
   padding-top: 10px;
   background-color: rgba(240, 240, 240, 0.9);
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  width: 250px;
+  width: 215px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   transition: 300ms ease;
+  @media (max-width: ${size.mobile}) {
+    width: 155px;
+  }
 
   ul {
     list-style: none;
     margin-left: 0;
     padding-left: 0;
-    
-  }
+ 
 
-  li {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-    border-bottom: 1px solid rgba(240, 240, 240, 0.9);
-    border-top: 1px solid rgba(240, 240, 240, 0.9);
-    transition: 200ms ease;
-    &:hover {
-      border-bottom: 1px solid ${brown};
-      border-top: 1px solid ${brown};
-
-      p,span {
-        color: ${brown};
+    li {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      border-bottom: 1px solid rgba(240, 240, 240, 0.9);
+      border-top: 1px solid rgba(240, 240, 240, 0.9);
+      transition: 200ms ease;
+        &:hover {
+          border-bottom: 1px solid ${brown};
+          border-top: 1px solid ${brown};
+          p,span {
+            color: ${brown};
+          }
+        }
+      p {
+        font-size: 0.6rem;
+        margin: 0 5px;
+        text-transform: capitalize;
       }
-    }
-    
-  }
+      
+      span {
+        font-size: 0.8rem;
+        margin: 0 10px;
+      }
 
-  p {
-    font-size: 0.6rem;
-    margin: 0 5px;
-    text-transform: capitalize;
-  }
-  
-  span {
-    font-size: 0.8rem;
-    margin: 0 10px;
-  }
-
-  img {
-    width: 65px;
-    height: 65px;
-    object-fit: cover;
-    margin: 5px 10px;
-    border-radius: 4px;
+      img {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        margin: 5px 10px;
+        border-radius: 4px;
+      }
+    @media (max-width: ${size.mobile}) {
+        flex-direction: column;
+      }
+    } 
   }
 `
 

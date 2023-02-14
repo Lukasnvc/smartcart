@@ -48,6 +48,7 @@ const Loader = styled(FiLoader)`
 
 const Container = styled.div`
   width: 90%;
+  height: 95vh;
   margin: 40px auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

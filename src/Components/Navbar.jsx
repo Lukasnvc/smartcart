@@ -7,12 +7,32 @@ import Search from "./Search";
 import { FaShoppingCart } from 'react-icons/fa'
 import { size } from "../Utils/breakpoints";
 import { useCategoriesList } from "../hooks/products";
+import { AiFillCloseSquare } from 'react-icons/ai';
+import { RiLoginBoxFill, RiLogoutBoxFill } from 'react-icons/ri'
+import { useState } from 'react';
 
 const Navbar = () => {
+  const [show, setShow] = useState(false)
   const { data, isLoading, error } = useCategoriesList();
   const categoriesItems = data || []
-  
   return (
+    <>
+      {!show && <MobileNavBtn onClick={()=>setShow(true)} />}
+      {show && <MobileNav>
+        <MobileLeft>
+        <Slink to={'/'}><Logo /></Slink>
+          <LoginBtn><span>Login</span><RiLoginBoxFill /></LoginBtn>
+          <Cart />
+          <Search />
+        </MobileLeft>
+        <CategoriesMobile>
+          {categoriesItems.length > 0 && categoriesItems.map((item) => (
+            <Slink to={`/category/${item}`} key={item}><li>{item}</li></Slink>
+          ))}
+        </CategoriesMobile>
+        <CloseBtn onClick={()=>setShow(false)}/>
+      </MobileNav>}
+
     <NavContainer>
       <DropDown>
         <h3><GiHamburgerMenu/>Categories</h3>
@@ -28,27 +48,100 @@ const Navbar = () => {
         <Cart/>
         </Right>
       </NavContainer>
+      </>
   );
 }
 
 export default Navbar;
 
-const Right = styled.div`
+const MobileNavBtn = styled(GiHamburgerMenu)`
+  display: none;
+  color: ${brown};
+  position: fixed;
+  font-size: 2rem;
+  padding: 10px;
+  top: 0;
+  @media (max-width: ${size.mobile}) {
+  display: block;
+  }
+`
+
+
+const CategoriesMobile = styled.ul`
+  list-style: none;
+  margin: 10px 0;
+  li {
+    margin-left: -30px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    &:hover {
+      color: black;
+    }
+  }
+`
+
+const MobileNav = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 60vh;
   display: flex;
   align-items: center;
-  @media (max-width: ${size.mobile}) {
-  flex-direction: column;
+  padding: 0 35px;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: capitalize;
+  color: ${brown};
+  border-bottom: 1px solid ${brown};
+  background-color: #ffffff;
+  @media (min-width: 581px) {
+  display: none;
   }
+`
+
+const LoginBtn = styled.div`
+display: flex;
+margin: 20px 0;
+svg {
+  margin: 0 2px;
+  font-size: 1.5rem;
+}
+`
+
+const MobileLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  margin-left: 60px;
+`
+
+const CloseBtn = styled(AiFillCloseSquare)`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 1.4rem;
+  cursor: pointer;
 `
 
 const Cart = styled(FaShoppingCart)`
   font-size: 1.5rem;
   color: ${brown};
   padding: 5px;
-  margin: 0 30px;
+  margin: 10px 30px;
   cursor: pointer;
   &:hover {
     color: ${mint}
+  }
+`
+
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+  @media (max-width: ${size.mobile}) {
+  flex-direction: column;
   }
 `
 
@@ -59,21 +152,19 @@ const NavContainer = styled.div`
   align-items: stretch;
   background-color: #ffffff;
   @media (max-width: ${size.mobile}) {
-  width: 100%;
+  display: none;
   }
 `
 
 const Logo = styled(FaOpencart)`
   padding: 8px 10px;
+  margin-right: 10px;
   cursor: pointer;
   color: ${brown};
   font-size: 2.2rem;
   &:hover {
       color: ${mint}
     }
-    @media (max-width: ${size.mobile}) {
- display: none;
-  }
 `
 
 const DropDown = styled.div`
@@ -126,10 +217,6 @@ const DropDown = styled.div`
     ul {
       display: block;
     }
-  }
-
-  @media (max-width: ${size.mobile}) {
-  margin: 0 10px;
   }
 `
 

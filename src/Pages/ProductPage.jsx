@@ -63,7 +63,7 @@ const Loader = styled(FiLoader)`
 
 const Container = styled.div`
   width: 90vw;
-  height: 80vh;
+  height: 95vh;
   margin: 30px auto;
   text-transform: capitalize;
   h2 {
