@@ -1,1 +1,7 @@
-export const searchProducts = "https://dummyjson.com/products/search?q=";
+import axios from "axios";
+
+const SEARCH = "https://dummyjson.com/products/search?q=";
+
+export const fetchSearch = (name) => {
+  return axios.get(SEARCH + name).then((response) => response.data.products);
+};

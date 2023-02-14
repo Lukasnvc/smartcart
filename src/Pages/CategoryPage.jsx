@@ -4,12 +4,19 @@ import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
 import { size } from "../Utils/breakpoints";
 import { useProductsByCategory } from "../hooks/products";
+import { FiLoader } from 'react-icons/fi';
 
 const CategoryPage = () => {
   let params = useParams()
   const { data, isLoading, error } = useProductsByCategory(params.name);
   const list = data || [];
-  console.log(data)
+
+  if (isLoading) {
+    return <Loader/>
+  }
+  if (error) {
+    return <h1>Cant get data...</h1>
+  }
 
   return (
     <Container>
@@ -23,6 +30,21 @@ const CategoryPage = () => {
 }
 
 export default CategoryPage;
+
+const Loader = styled(FiLoader)`
+  width: 100vw;
+  margin: 30% auto;
+  font-size: 5rem;
+  animation: rotation 2s infinite linear;
+  @keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+`
 
 const Container = styled.div`
   width: 90%;

@@ -1,24 +1,18 @@
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import { brown } from "../Utils/colors";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { searchProducts } from "../Api/searchProducts";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { size } from "../Utils/breakpoints";
+import { useSearch } from "../hooks/products";
 
 const Search = () => {
-  const [products, setProducts] = useState([])
+
   const [input, setInput] = useState('')
   const [isHidden, setIsHidden] = useState(true)
-  useEffect(() => {
-    axios
-      .get(searchProducts + input)
-      .then((response) => setProducts(response.data.products))
-      .catch((error) => {
-      console.log('Search :', error)
-    })
-  }, [input])
+  const { data } = useSearch(input);
+  const products = data || [];
+
   const searching = (e) => {
     setIsHidden(false)
     setInput(e)

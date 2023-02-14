@@ -1,31 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { getSingleProduct } from '../Api/getSingleProduct';
+import {FiLoader} from 'react-icons/fi'
 import styled from "styled-components";
-import { bgColor, brown, grey, lightGreen, mint } from '../Utils/colors';
+import { bgColor, brown, grey, mint } from '../Utils/colors';
 import { FaCartPlus } from 'react-icons/fa'
-import {size} from '../Utils/breakpoints'
+import { size } from '../Utils/breakpoints';
+import { useSingleProduct } from "../hooks/products";
 
 
 const Product = () => {
   let params = useParams()
-  const [product, setProduct] = useState({})
-  const [pic, setPic ] = useState('')
+  const [pic, setPic] = useState('')
+  const { data, isLoading, error } = useSingleProduct(params.id);
+  const product = data || {};
   useEffect(() => {
-    axios
-      .get(getSingleProduct + params.id)
-      .then((response) => {
-        setProduct(response.data)
-        setPic(response.data.images[0])
-      })
-      .catch((error) => {
-        console.log('Single product :', error);
-    })
-  }, [params.id])
-
-  console.log(product)
-  console.log(pic)
+    if (!isLoading) {
+      setPic(product.images[0])
+    }
+  },[isLoading])
+ 
   return (
     <Container>
       <h2>{product.title}</h2>
@@ -33,10 +26,10 @@ const Product = () => {
       <ImgContainer>
         <ThumbNails>
         {product.images && product.images.map((item) => (
-          <img onClick={()=> setPic(item)} key={item} src={item} alt={product.title + pic} />
+          <img onClick={()=> setPic(item)} key={item} src={item} alt={product.title + pic} /> 
         ))}
         </ThumbNails>
-        {pic && <img src={pic} alt="" />}
+        {pic ? <img src={pic} alt="" /> : <Loader/>}
         </ImgContainer>
         <DetailContainer>
         <h4>Rating: {product.rating}</h4>
@@ -53,6 +46,20 @@ const Product = () => {
 }
 
 export default Product;
+
+const Loader = styled(FiLoader)`
+  margin: auto;
+  font-size: 5rem;
+  animation: rotation 2s infinite linear;
+  @keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+`
 
 const Container = styled.div`
   width: 90vw;

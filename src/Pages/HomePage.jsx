@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { size } from '../Utils/breakpoints';
 import LineFiller from '../Components/LineFiller';
 import { useAllProducts } from '../hooks/products';
+import { FiLoader } from 'react-icons/fi';
 
 
 const HomePage = () => {
@@ -12,7 +13,7 @@ const HomePage = () => {
   const list = data || []
 
   if (isLoading) {
-    return <h1>Loading...</h1>
+    return <Loader/>
   }
   if (error) {
     return <h1>Cant get data...</h1>
@@ -32,6 +33,22 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+
+const Loader = styled(FiLoader)`
+  width: 100vw;
+  margin: 30% auto;
+  font-size: 5rem;
+  animation: rotation 2s infinite linear;
+  @keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+`
 
 const Container = styled.div`
   width: 90%;
