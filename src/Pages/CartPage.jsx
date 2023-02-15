@@ -35,7 +35,6 @@ const CartPage = () => {
       </CartContainer>
       <ButtonContainer>
         <StyledButton type='button' onClick={handleClick}>CheckOut</StyledButton>
-
       </ButtonContainer>
     </Container>
   );
@@ -45,7 +44,7 @@ export default CartPage;
 
 const Container = styled.div`
   height: 100%;
-  margin-bottom: 100px;
+  padding-bottom: 80px;
   max-width: ${size.tablet};
   margin: 30px auto;
   color: ${brown};
