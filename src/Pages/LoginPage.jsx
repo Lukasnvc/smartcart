@@ -13,17 +13,22 @@ import { brown } from "../Utils/colors";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { mutateAsync: loginUser } = useLoginUser();
-  const { setUser } = useContext(UserContext)
+  const { setUser, user } = useContext(UserContext)
   
   const handleSubmit = (values, { setsubmitting, resetForm }) => {
     loginUser(values)
       .then((response) => {
+      
         setUser(response)
         navigate('/checkout')
+        if (user===null) {
+          console.log('neisi')
+          }
       })
       .catch((error) => {
       console.log('Login:', error )
-    })
+      })
+    
   }
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),

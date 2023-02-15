@@ -9,12 +9,17 @@ import { size } from "../Utils/breakpoints";
 import { useCategoriesList } from "../hooks/products";
 import { AiFillCloseSquare } from 'react-icons/ai';
 import { RiLoginBoxFill, RiLogoutBoxFill } from 'react-icons/ri'
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../Contexts/UserContext';
+
 
 const Navbar = () => {
+  const {logout, isLoggedIn} = useContext(UserContext)
   const [show, setShow] = useState(false)
   const { data, isLoading, error } = useCategoriesList();
   const categoriesItems = data || []
+
+  console.log(isLoading)
   return (
     <>
       {!show && <MobileNavBtn onClick={()=>setShow(true)} />}
@@ -44,7 +49,8 @@ const Navbar = () => {
       </DropDown>
         <Slink to={'/'}><Logo/></Slink>
       <Right>
-      <Search />
+          <Search />
+          {!isLoggedIn ? <LoginBtn onClick={() => logout()}><span>Login</span><RiLoginBoxFill /></LoginBtn> : <LoginBtn onClick={() => logout()}><span>Logout</span><RiLogoutBoxFill /></LoginBtn>}
         <Slink to={'/cart'}><Cart/></Slink>
         </Right>
       </NavContainer>
