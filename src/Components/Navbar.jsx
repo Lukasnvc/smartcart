@@ -22,7 +22,7 @@ const Navbar = () => {
         <MobileLeft>
         <Slink to={'/'}><Logo /></Slink>
           <LoginBtn><span>Login</span><RiLoginBoxFill /></LoginBtn>
-          <Cart />
+          <Slink to={'/cart'}><Cart /></Slink>
           <Search />
         </MobileLeft>
         <CategoriesMobile>
@@ -45,7 +45,7 @@ const Navbar = () => {
         <Slink to={'/'}><Logo/></Slink>
       <Right>
       <Search />
-        <Cart/>
+        <Slink to={'/cart'}><Cart/></Slink>
         </Right>
       </NavContainer>
       </>

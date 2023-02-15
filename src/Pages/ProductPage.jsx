@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {FiLoader} from 'react-icons/fi'
 import styled from "styled-components";
 import { bgColor, brown, grey, mint } from '../Utils/colors';
 import { FaCartPlus } from 'react-icons/fa'
 import { size } from '../Utils/breakpoints';
 import { useSingleProduct } from "../hooks/products";
+import Loading from "../Components/Loading";
+import { CartContext } from '../Contexts/CartContext';
+import { useContext } from 'react';
 
 
 const Product = () => {
+  const {handleAddToCart} = useContext(CartContext)
   let params = useParams()
   const [pic, setPic] = useState('')
   const { data, isLoading, error } = useSingleProduct(params.id);
@@ -29,12 +32,12 @@ const Product = () => {
           <img onClick={()=> setPic(item)} key={item} src={item} alt={product.title + pic} /> 
         ))}
         </ThumbNails>
-        {pic ? <img src={pic} alt="" /> : <Loader/>}
+        {pic ? <img src={pic} alt="" /> : <Loading/>}
         </ImgContainer>
         <DetailContainer>
         <h4>Rating: {product.rating}</h4>
         <span>${product.price}</span>
-        <button><FaCartPlus/>Add to Cart</button>
+        <button onClick={() => handleAddToCart(product)}><FaCartPlus/>Add to Cart</button>
       </DetailContainer>
       </ProductContainer>
       <Bottom>
@@ -47,24 +50,11 @@ const Product = () => {
 
 export default Product;
 
-const Loader = styled(FiLoader)`
-  margin: auto;
-  font-size: 5rem;
-  animation: rotation 2s infinite linear;
-  @keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-`
-
 const Container = styled.div`
   width: 90vw;
-  height: 95vh;
   margin: 30px auto;
+  height: 100%;
+  margin-bottom: 100px;
   text-transform: capitalize;
   h2 {
     margin: 20px 40px;

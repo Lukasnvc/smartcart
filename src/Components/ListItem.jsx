@@ -1,22 +1,27 @@
 import styled from "styled-components";
-import { brown, grey, lightGreen } from "../Utils/colors";
+import { brown, lightGreen } from "../Utils/colors";
 import { size } from "../Utils/breakpoints";
-import {BsFillPlusCircleFill} from 'react-icons/bs'
+import { BsFillPlusCircleFill } from 'react-icons/bs';
+import { CartContext } from "../Contexts/CartContext";
+import { useContext } from "react";
+import { NavLink } from 'react-router-dom';
 
-
-const ListItem = ({ title, price, discount, pic, category }) => {
-  const oldPrice = (price+price/discount).toFixed(2)
+const ListItem = ({ product }) => {
+  const {handleAddToCart} = useContext(CartContext)
+  const oldPrice = (product.price+product.price/product.discountPercentage).toFixed(2)
   return (
     <CardContainer>
-      <ImgContainer>
-        <img src={pic} alt={title} />
-      </ImgContainer>
-      <p>{category}</p>
-      <h4>{title}</h4>
+       <Slink to={`/category/${product.category}/${product.id}`} >
+        <ImgContainer>
+        <img src={product.thumbnail} alt={product.title} />
+        </ImgContainer>
+        </Slink>
+      <p>{product.category}</p>
+      <h4>{product.title}</h4>
       <OldPrice>${oldPrice}</OldPrice>
       <Bottom>
-        <span>${price}</span>
-        <span><BsFillPlusCircleFill/></span>
+        <span>${product.price}</span>
+        <span><BsFillPlusCircleFill onClick={()=> handleAddToCart(product) } /></span>
        </Bottom>
     </CardContainer>
   );
@@ -113,4 +118,9 @@ const ImgContainer = styled.div`
       }
     }
   }
+`
+
+const Slink = styled(NavLink)`
+  text-decoration: none;
+  color: inherit;
 `

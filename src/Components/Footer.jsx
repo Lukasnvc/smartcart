@@ -29,6 +29,10 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: space-evenly;
   gap: 50px;
