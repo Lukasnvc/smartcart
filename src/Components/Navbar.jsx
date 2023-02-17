@@ -11,9 +11,12 @@ import { AiFillCloseSquare } from 'react-icons/ai';
 import { RiLoginBoxFill, RiLogoutBoxFill } from 'react-icons/ri'
 import { useState, useContext } from 'react';
 import { UserContext } from '../Contexts/UserContext';
+import { CartContext } from "../Contexts/CartContext";
+import {BsFillCartFill, BsCart} from 'react-icons/bs'
 
 
 const Navbar = () => {
+  const {cartItems} = useContext(CartContext)
   const {logout, isLoggedIn} = useContext(UserContext)
   const [show, setShow] = useState(false)
   const { data, isLoading, error } = useCategoriesList();
@@ -51,7 +54,9 @@ const Navbar = () => {
       <Right>
           <Search />
           {!isLoggedIn ? <LoginBtn onClick={() => logout()}><span>Login</span><RiLoginBoxFill /></LoginBtn> : <LoginBtn onClick={() => logout()}><span>Logout</span><RiLogoutBoxFill /></LoginBtn>}
-        <Slink to={'/cart'}><Cart/></Slink>
+          <Slink to={'/cart'}>
+            {cartItems.length>0 ? <CartFilled/> : <Cart/>}
+           </Slink>
         </Right>
       </NavContainer>
       </>
@@ -132,7 +137,18 @@ const CloseBtn = styled(AiFillCloseSquare)`
   cursor: pointer;
 `
 
-const Cart = styled(FaShoppingCart)`
+const Cart = styled(BsCart)`
+  font-size: 1.5rem;
+  color: ${brown};
+  padding: 5px;
+  margin: 10px 30px;
+  cursor: pointer;
+  &:hover {
+    color: ${mint}
+  }
+`
+
+const CartFilled = styled(BsFillCartFill)`
   font-size: 1.5rem;
   color: ${brown};
   padding: 5px;

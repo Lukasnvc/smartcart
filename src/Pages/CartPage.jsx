@@ -4,7 +4,8 @@ import { bgColor, brown } from "../Utils/colors";
 import { CartContext } from "../Contexts/CartContext";
 import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CartItems from "../Components/CartItems";
 
 const CartPage = () => {
   const navigate = useNavigate()
@@ -18,29 +19,21 @@ const CartPage = () => {
   return (
     <Container>
       <Title>Cart</Title>
-      <CartContainer>
-        {cartItems.map((product) => (
-          <Slink key={product.id} to={`/category/${product.category}/${product.id}`}>
-          <CartItem>
-          <img src={product.images[0]} alt={product.title} />
-          <div>
-               <ItemName>{product.title}</ItemName>
-              <ItemPrice>${product.price}</ItemPrice>
-          </div>
-            <ItemQuantity>pcs : { product.quantity}</ItemQuantity>
-        </CartItem>
-          </Slink>
-        ))}
-        
-      </CartContainer>
+      {cartItems.length>0 ? <CartItems cartItems={cartItems}/> : <TitleEmptyCart>Cart is empty</TitleEmptyCart> }
+      
       <ButtonContainer>
-        <StyledButton type='button' onClick={handleClick}>CheckOut</StyledButton>
+        {cartItems.length > 0 && <StyledButton type='button' onClick={handleClick}>CheckOut</StyledButton>}
       </ButtonContainer>
     </Container>
   );
 }
 
 export default CartPage;
+
+const TitleEmptyCart = styled.h3`
+  text-align: center;
+  margin: 100px auto;
+`
 
 const Container = styled.div`
   height: 100%;
@@ -55,64 +48,10 @@ const Title = styled.h2`
   font-size: 1.5rem;
 `
 
-const CartContainer = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  padding: 15px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-`
-
-const CartItem = styled.div`
-  background-color: ${bgColor};
-  border-radius: 5px;
-  padding: 10px;
-  display: flex;
-  margin-bottom: 10px;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  img {
-    width: 120px;
-    height: 120px;
-    margin-right: 20px;
-    object-fit: contain;
-  }
-  &:hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    cursor: pointer;
-  }
-`
-
-const ItemPrice = styled.p`
-  margin-top: 16px;
-  margin-bottom: 8px;
-  font-size: 24px;
-  font-weight: 600;
-`
-
-const ItemName = styled.p`
-  font-weight: 300;
-  margin-top: 8px;
-  text-transform: capitalize;
-`
-
-const ItemQuantity = styled.div`
-  flex: 1;
-  align-self: center;
-  margin-right: 32px;
-  text-align: right;
-`
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 35px;
-`
-
-const Slink = styled(NavLink)`
-  text-decoration: none;
-  color: inherit;
 `
 
 const StyledButton = styled.button`
