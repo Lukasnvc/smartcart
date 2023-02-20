@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { brown } from "../Utils/colors";
 import { size } from "../Utils/breakpoints";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../Contexts/UserContext";
 
 const Footer = () => {
+  const {isLoggedIn, logout} = useContext(UserContext)
   return (
     <Container>
       <About>
@@ -14,7 +17,7 @@ const Footer = () => {
         <h3>Useful Links</h3>
         <Slink to={'/'}><p>Shop</p></Slink>
         <Slink to={'/cart'}><p>Cart</p></Slink>
-        <Slink to={'/login'}><p>Login</p></Slink>
+        {!isLoggedIn ? <Slink to={'/login'}><p>Login</p></Slink> : <Slink onClick={()=> logout()} to={'/'}><p>Logout</p></Slink>}
         <p>Privacy policy</p>
       </Links>
       <Contacts>

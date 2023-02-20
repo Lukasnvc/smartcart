@@ -1,27 +1,48 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { bgColor } from "../Utils/colors";
+import { bgColor, brown } from "../Utils/colors";
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { useContext } from "react";
+import { CartContext } from "../Contexts/CartContext";
 
-const CartItems = ({cartItems}) => {
+const CartItems = ({ cartItems}) => {
+const {updateQuantity} = useContext(CartContext)
   return (
     <CartContainer>
         {cartItems.map((product) => (
-          <Slink key={product.id} to={`/category/${product.category}/${product.id}`}>
-          <CartItem>
+          <CartItem key={product.id}>
           <img src={product.images[0]} alt={product.title} />
           <div>
-               <ItemName>{product.title}</ItemName>
+          <Slink to={`/category/${product.category}/${product.id}`}><ItemName>{product.title}</ItemName></Slink>
               <ItemPrice>${product.price}</ItemPrice>
           </div>
-            <ItemQuantity>pcs : { product.quantity}</ItemQuantity>
+            <ItemQuantity>pcs : {product.quantity}</ItemQuantity>
+              <AddItem onClick={()=> updateQuantity(product.id, 'increase')}/>
+              <RemoveItem onClick={()=>updateQuantity(product.id, "")}/>
         </CartItem>
-          </Slink>
         ))}
       </CartContainer>
   );
 }
 
 export default CartItems;
+
+const AddItem = styled(AiOutlinePlus)`
+  color: ${brown};
+  font-size: 1.3rem;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`
+
+const RemoveItem = styled(AiOutlineMinus)`
+  color: ${brown};
+  font-size: 1.3rem;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+`
+
 
 
 const Slink = styled(NavLink)`
@@ -39,6 +60,7 @@ const CartContainer = styled.div`
 `
 
 const CartItem = styled.div`
+  position: relative;
   background-color: ${bgColor};
   border-radius: 5px;
   padding: 10px;
@@ -46,6 +68,7 @@ const CartItem = styled.div`
   margin-bottom: 10px;
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  user-select: none;
   img {
     width: 120px;
     height: 120px;

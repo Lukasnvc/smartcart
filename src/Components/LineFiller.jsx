@@ -1,14 +1,17 @@
-import Pic from '../Utils/pictures/filler.png'
-import styled from 'styled-components'
-import {FaPercent} from 'react-icons/fa'
-import { brown } from '../Utils/colors'
-import { size } from '../Utils/breakpoints'
+import Pic from '../Utils/pictures/filler.png';
+import styled from 'styled-components';
+import { FaPercent } from 'react-icons/fa';
+import { brown } from '../Utils/colors';
+import { size } from '../Utils/breakpoints';
+import { UserContext } from '../Contexts/UserContext';
+import { useContext } from 'react';
 
 const LineFiller = () => {
-
+  const { user, isLoggedIn } = useContext(UserContext);
   return (
     <Container>
       <div>
+        {isLoggedIn && <h3>Welcome {user.first_name} {user.last_name}</h3>}
         <h1>LIMITED FLASH SALE</h1>
         <FaPercent/>
       </div>

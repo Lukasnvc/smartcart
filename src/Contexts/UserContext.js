@@ -7,7 +7,6 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", null);
 
   const isLoggedIn = !!user;
-  console.log(user);
 
   const logout = () => {
     setUser(null);

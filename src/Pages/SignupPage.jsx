@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useContext } from 'react';
-import { UserContext } from '../Contexts/UserContext';
 import FormikInput from '../Components/FormikInput';
 import { size } from '../Utils/breakpoints';
 import { brown } from '../Utils/colors';
@@ -76,3 +74,4 @@ const Title = styled.p`
   text-align: center;
   margin-bottom: 16px;
 `
+

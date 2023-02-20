@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import CartItems from "../Components/CartItems";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../Contexts/CartContext";
 import { size } from "../Utils/breakpoints";
 import { brown } from "../Utils/colors";
 import FormikPaymentForm from "../Components/FormikPaymentForm";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutPage = () => {
-  const {cartItems} = useContext(CartContext)
+  const navigate = useNavigate()
+  const { cartItems } = useContext(CartContext)
+  useEffect(() => {
+    if (!cartItems.length) {
+      navigate('/cart')
+    }
+  },[cartItems, navigate])
   return (
     <Container>
       <PaymentContainer>

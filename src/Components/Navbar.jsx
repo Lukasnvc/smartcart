@@ -20,15 +20,15 @@ const Navbar = () => {
   const {logout, isLoggedIn} = useContext(UserContext)
   const [show, setShow] = useState(false)
   const { data, isLoading, error } = useCategoriesList();
-  const categoriesItems = data || []
-
-  console.log(isLoading)
+  const categoriesItems = data || [];
   return (
     <>
       {!show && <MobileNavBtn onClick={()=>setShow(true)} />}
       {show && <MobileNav>
+        
         <MobileLeft>
-        <Slink to={'/'}><Logo /></Slink>
+        
+          <Slink to={'/'}><Logo /></Slink>
           <LoginBtn><span>Login</span><RiLoginBoxFill /></LoginBtn>
           <Slink to={'/cart'}><Cart /></Slink>
           <Search />
@@ -53,7 +53,7 @@ const Navbar = () => {
         <Slink to={'/'}><Logo/></Slink>
       <Right>
           <Search />
-          {!isLoggedIn ? <LoginBtn onClick={() => logout()}><span>Login</span><RiLoginBoxFill /></LoginBtn> : <LoginBtn onClick={() => logout()}><span>Logout</span><RiLogoutBoxFill /></LoginBtn>}
+          {!isLoggedIn ? <Slink to={'/login'}><LoginBtn onClick={() => logout()}><RiLoginBoxFill /><span>Login</span></LoginBtn></Slink> : <Slink to={'/'}><LoginBtn onClick={() => logout()}><RiLogoutBoxFill /><span>Logout</span></LoginBtn></Slink>}
           <Slink to={'/cart'}>
             {cartItems.length>0 ? <CartFilled/> : <Cart/>}
            </Slink>
@@ -82,6 +82,7 @@ const CategoriesMobile = styled.ul`
   list-style: none;
   margin: 10px 0;
   li {
+    font-size: 0.8rem;
     margin-left: -30px;
     margin-bottom: 5px;
     cursor: pointer;
@@ -96,7 +97,7 @@ const MobileNav = styled.div`
   top: 0;
   right: 0;
   width: 100%;
-  height: 60vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   padding: 0 35px;
@@ -113,10 +114,16 @@ const MobileNav = styled.div`
 
 const LoginBtn = styled.div`
 display: flex;
-margin: 20px 0;
+flex-direction: column;
+align-items: center;
+margin-left: 20px;
+color: inherit;
+color: ${brown};
 svg {
-  margin: 0 2px;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+}
+span {
+  font-size: 0.55rem;
 }
 `
 
@@ -141,7 +148,8 @@ const Cart = styled(BsCart)`
   font-size: 1.5rem;
   color: ${brown};
   padding: 5px;
-  margin: 10px 30px;
+  margin-left: 20px;
+  margin-right: 30px;
   cursor: pointer;
   &:hover {
     color: ${mint}
@@ -152,7 +160,8 @@ const CartFilled = styled(BsFillCartFill)`
   font-size: 1.5rem;
   color: ${brown};
   padding: 5px;
-  margin: 10px 30px;
+  margin-left: 20px;
+  margin-right: 30px;
   cursor: pointer;
   &:hover {
     color: ${mint}

@@ -8,12 +8,10 @@ import { useSearch } from "../hooks/products";
 
 
 const Search = () => {
-
   const [input, setInput] = useState('')
   const [isHidden, setIsHidden] = useState(true)
   const { data } = useSearch(input);
-  const products = data || [];
-
+  const products = (data || []).slice(0,6);
   const searching = (e) => {
     setIsHidden(false)
     setInput(e)
@@ -21,15 +19,16 @@ const Search = () => {
   const left = () => {
     setIsHidden(true)
   }
+  console.log(isHidden)
   return (
     <SearchContainer>
         <FaSearch/>
       <input onChange={(e) => searching(e.target.value) } placeholder="Product search ..." type="text" />
-      {products.length < 30 &&
+      {!isHidden &&
         <SearchDropDown onMouseLeave={left}
         style={{ display: isHidden && 'none' }}>
         <ul>
-          {products.length < 30 && products.map((item) => (
+           {products.map((item) => (
             <Slink to={`/category/${item.category}/${item.id}`} key={item.id + item.title}>
               <li>
                 <img src={item.thumbnail} alt={item.title} />
