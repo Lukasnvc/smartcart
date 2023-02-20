@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { brown } from "../Utils/colors";
 import { size } from "../Utils/breakpoints";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -11,9 +12,9 @@ const Footer = () => {
       </About>
       <Links>
         <h3>Useful Links</h3>
-        <p>Shop</p>
-        <p>Cart</p>
-        <p>Login</p>
+        <Slink to={'/'}><p>Shop</p></Slink>
+        <Slink to={'/cart'}><p>Cart</p></Slink>
+        <Slink to={'/login'}><p>Login</p></Slink>
         <p>Privacy policy</p>
       </Links>
       <Contacts>
@@ -76,4 +77,9 @@ const Links = styled.div`
 const Contacts = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+const Slink = styled(NavLink)`
+  color: inherit;
+  text-decoration: none;
 `

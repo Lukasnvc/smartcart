@@ -43,7 +43,7 @@ const LoginPage = () => {
             <FormikInput name='email' type='email' placeholder=' Email'/>
             <FormikInput name='password' type='password' placeholder=' Password'/>
             <Button type='submit'>Login</Button>
-            <Slink to={'/register'}>Sign up</Slink>
+            <Slink to={'/signup'}>Sign up</Slink>
         </StyledForm>
       </Formik>
     </>
