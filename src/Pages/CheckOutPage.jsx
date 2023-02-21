@@ -7,6 +7,7 @@ import { brown } from "../Utils/colors";
 import FormikPaymentForm from "../Components/FormikPaymentForm";
 import { useNavigate } from "react-router-dom";
 
+
 const CheckOutPage = () => {
   const navigate = useNavigate()
   const { cartItems } = useContext(CartContext)

@@ -5,9 +5,14 @@ import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { CartContext } from "../Contexts/CartContext";
 import { useContext } from "react";
 import { NavLink } from 'react-router-dom';
+import {toast} from 'react-hot-toast'
 
 const ListItem = ({ product }) => {
-  const {handleAddToCart} = useContext(CartContext)
+  const { handleAddToCart } = useContext(CartContext)
+  const handleAdd = () => {
+    handleAddToCart(product);
+    toast.success(`${product.title} added to cart`)
+  }
   const oldPrice = (product.price+product.price/product.discountPercentage).toFixed(2)
   return (
     <CardContainer>
@@ -21,7 +26,7 @@ const ListItem = ({ product }) => {
       <OldPrice>${oldPrice}</OldPrice>
       <Bottom>
         <span>${product.price}</span>
-        <span><BsFillPlusCircleFill onClick={()=> handleAddToCart(product) } /></span>
+        <span><BsFillPlusCircleFill onClick={handleAdd} /></span>
        </Bottom>
     </CardContainer>
   );

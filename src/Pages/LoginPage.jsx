@@ -9,6 +9,7 @@ import Button from "../Components/Button";
 import { size } from "../Utils/breakpoints";
 import {useLoginUser} from '../hooks/users'
 import { brown } from "../Utils/colors";
+import { toast } from 'react-hot-toast';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -20,9 +21,11 @@ const LoginPage = () => {
       .then((response) => {
         setUser(response)
         navigate('/checkout')
+        toast.success(`Your logged in`)
       })
       .catch((error) => {
-      console.log('Login:', error )
+        console.log('Login:', error)
+        toast.error("No such user")
       })
     
   }

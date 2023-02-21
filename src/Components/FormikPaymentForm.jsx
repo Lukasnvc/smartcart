@@ -9,6 +9,8 @@ import FormikInput from './FormikInput';
 import Button from './Button';
 import FormikSelect from './FormikSelect';
 import { options } from '../Utils/countriesArray';
+import { toast } from 'react-hot-toast';
+import { UserContext } from '../Contexts/UserContext';
 
 
 const validationSchema = Yup.object().shape({
@@ -26,12 +28,13 @@ const validationSchema = Yup.object().shape({
 const FormikPaymentForm = () => {
   const navigate = useNavigate();
   const { resetCart } = useContext(CartContext);
+  const { user } = useContext(UserContext)
 
   const handleSubmit = (value, { resetForm }) => {
     resetCart();
     resetForm();
     navigate('/');
-    console.log(value)
+    toast.success(`Thank you for buying ${user.first_name} ${user.last_name}`)
   }
   return (
     <Formik
