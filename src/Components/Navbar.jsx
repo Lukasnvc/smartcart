@@ -1,45 +1,27 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { mint, brown } from "../Utils/colors";
-import { FaOpencart } from 'react-icons/fa'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { FaOpencart } from 'react-icons/fa';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { NavLink } from "react-router-dom";
 import Search from "./Search";
-import { FaShoppingCart } from 'react-icons/fa'
 import { size } from "../Utils/breakpoints";
 import { useCategoriesList } from "../hooks/products";
-import { AiFillCloseSquare } from 'react-icons/ai';
-import { RiLoginBoxFill, RiLogoutBoxFill } from 'react-icons/ri'
-import { useState, useContext } from 'react';
+import { RiLoginBoxFill, RiLogoutBoxFill } from 'react-icons/ri';
+import { useContext } from 'react';
 import { UserContext } from '../Contexts/UserContext';
 import { CartContext } from "../Contexts/CartContext";
-import {BsFillCartFill, BsCart} from 'react-icons/bs'
+import { BsFillCartFill, BsCart } from 'react-icons/bs';
+import MobileNav from './MobileNav';
 
 
 const Navbar = () => {
-  const {cartItems} = useContext(CartContext)
-  const {logout, isLoggedIn} = useContext(UserContext)
-  const [show, setShow] = useState(false)
+  const { cartItems } = useContext(CartContext);
+  const { logout, isLoggedIn } = useContext(UserContext);
   const { data, isLoading, error } = useCategoriesList();
   const categoriesItems = data || [];
   return (
     <>
-      {!show && <MobileNavBtn onClick={()=>setShow(true)} />}
-      {show && <MobileNav>
-        
-        <MobileLeft>
-        
-          <Slink to={'/'}><Logo /></Slink>
-          <LoginBtn><span>Login</span><RiLoginBoxFill /></LoginBtn>
-          <Slink to={'/cart'}><Cart /></Slink>
-          <Search />
-        </MobileLeft>
-        <CategoriesMobile>
-          {categoriesItems.length > 0 && categoriesItems.map((item) => (
-            <Slink to={`/category/${item}`} key={item}><li>{item}</li></Slink>
-          ))}
-        </CategoriesMobile>
-        <CloseBtn onClick={()=>setShow(false)}/>
-      </MobileNav>}
+      <MobileNav cartItems={cartItems} logout={logout} isLoggedIn={isLoggedIn} data={categoriesItems} />
 
     <NavContainer>
       <DropDown>
@@ -65,53 +47,6 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavBtn = styled(GiHamburgerMenu)`
-  display: none;
-  color: ${brown};
-  position: fixed;
-  font-size: 2rem;
-  padding: 10px;
-  top: 0;
-  @media (max-width: ${size.mobile}) {
-  display: block;
-  }
-`
-
-
-const CategoriesMobile = styled.ul`
-  list-style: none;
-  margin: 10px 0;
-  li {
-    font-size: 0.8rem;
-    margin-left: -30px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    &:hover {
-      color: black;
-    }
-  }
-`
-
-const MobileNav = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 50vh;
-  display: flex;
-  align-items: center;
-  padding: 0 35px;
-  justify-content: space-between;
-  align-items: center;
-  text-transform: capitalize;
-  color: ${brown};
-  border-bottom: 1px solid ${brown};
-  background-color: #ffffff;
-  @media (min-width: 581px) {
-  display: none;
-  }
-`
-
 const LoginBtn = styled.div`
 display: flex;
 flex-direction: column;
@@ -125,23 +60,6 @@ svg {
 span {
   font-size: 0.55rem;
 }
-`
-
-const MobileLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 100%;
-  margin-left: 60px;
-`
-
-const CloseBtn = styled(AiFillCloseSquare)`
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 1.4rem;
-  cursor: pointer;
 `
 
 const Cart = styled(BsCart)`

@@ -19,7 +19,6 @@ const Search = () => {
   const left = () => {
     setIsHidden(true)
   }
-  console.log(isHidden)
   return (
     <SearchContainer>
         <FaSearch/>
